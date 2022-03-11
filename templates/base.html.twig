@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>{% block title %}Welcome !{% endblock %}</title>
+    {% block stylesheets %}
+    {% endblock %}
+
+
+</head>
+
+<body>
+
+{% block body %}{% endblock %}
+
+{% block footer %}
+    <footer style="text-align: center;">
+        <div>
+            <p>&copy; {{ 'now'|date('Y') }} </p>
+        </div>
+    </footer>
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
+
+</body>
+</html>

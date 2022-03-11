@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block body %}
+    <header style="text-align: right">
+        <b>{{ user.email }}</b>
+        <a href="{{ path('logout') }}">logout</a>
+    </header>
+    <div style="text-align: center;min-height: 200px">
+
+        <h1>Picture of the day by the Nasa</h1>
+        {% if picture %}
+            <h2>{{ picture.title }}
+            </h2>
+            <b>Date: {{ picture.date | date('d/m/Y') }}</b>
+            <br/>
+            <img src="{{ picture.url }}" alt="{{ picture.title }}">
+            <p>{{ picture.explanation ?? '' }}</p>
+        {% endif %}
+    </div>
+{% endblock %}
