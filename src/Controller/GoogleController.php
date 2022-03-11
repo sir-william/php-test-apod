@@ -11,7 +11,8 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class GoogleController extends AbstractController {
+class GoogleController extends AbstractController
+{
 
     /**
      * Link to this controller to start the "connect" process
@@ -24,7 +25,7 @@ class GoogleController extends AbstractController {
             return $this->redirectToRoute('secured');
         }
         return $clientRegistry
-                        ->getClient('google')->redirect(['email' ]); // the scopes you want to access
+            ->getClient('google')->redirect(['email']); // the scopes you want to access
     }
 
     /**
@@ -36,29 +37,18 @@ class GoogleController extends AbstractController {
      */
     public function connectCheckAction(Request $request, ClientRegistry $clientRegistry): RedirectResponse
     {
-        // ** if you want to *authenticate* the user, then
-        // leave this method blank and create a Guard authenticator
-        // (read below)
 
         /** @var GoogleClient $client */
-         $service = implode($clientRegistry->getEnabledClientKeys());
+        $service = implode($clientRegistry->getEnabledClientKeys());
         $client = $clientRegistry->getClient($service);
 
 
         try {
-            // the exact class depends on which provider you're using
             /** @var GoogleClient $user */
             $user = $client->fetchUser();
-
-            // do something with all this new power!
-            // e.g. $name = $user->getFirstName();
-
             $this->get('session')->set('user', $user);
-
             return $this->redirectToRoute('secured');
         } catch (IdentityProviderException $e) {
-            // something went wrong!
-            // probably you should return the reason to the user
             var_dump($e->getMessage());
             die;
         }
